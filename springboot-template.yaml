@@ -1,31 +1,31 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: testapi
+  name: testangularapp
 objects:
 - apiVersion: v1
   kind: ImageStream
   metadata:
     labels:
-      app: testapi
-    name: testapi
+      app: testangularapp
+    name: testangularapp
   spec:
     tags:
-    - name: "testapi"
+    - name: "testangularapp"
 - apiVersion: "v1"
   kind: "BuildConfig"
   metadata:
-    name: "testapi"
+    name: "testangularapp"
   spec:
     source:
       git:
-        uri: https://github.com/shanpagoti/springboot-app.git
+        uri: https://github.com/shanpagoti/httpd-app.git
     strategy: 
       type: "Docker"
     output:
       to:
         kind: "ImageStreamTag"
-        name: "testapi:latest"
+        name: "testangularapp:latest"
     triggers:
     - generic:
         secret: b725254e6534fd70
@@ -39,13 +39,13 @@ objects:
     creationTimestamp: null
     generation: 7
     labels:
-      app: testapi
-    name: testapi
+      app: testangularapp
+    name: testangularapp
   spec:
     replicas: 1
     selector:
-      app: testapi
-      deploymentconfig: testapi
+      app: testangularapp
+      deploymentconfig: testangularapp
     strategy:
       resources: {}
       rollingParams:
@@ -61,8 +61,8 @@ objects:
           openshift.io/generated-by: OpenShiftWebConsole
         creationTimestamp: null
         labels:
-          app: testapi
-          deploymentconfig: testapi
+          app: testangularapp
+          deploymentconfig: testangularapp
       spec:
         containers:
         - env:
@@ -74,9 +74,9 @@ objects:
             valueFrom:
               fieldRef:
                 fieldPath: metadata.name
-          image: testapi/testapi@sha256:f5f80e5c582c0e5ed010a9057ce5c6458c31f4e28c652d0e1f9397cd543c2b31
+          image: testangularapp/testangularapp@sha256:f5f80e5c582c0e5ed010a9057ce5c6458c31f4e28c652d0e1f9397cd543c2b31
           imagePullPolicy: Always
-          name: testapi
+          name: testangularapp
           resources: {}
           terminationMessagePath: /dev/termination-log
         dnsPolicy: ClusterFirst
@@ -89,8 +89,8 @@ objects:
     - imageChangeParams:
         automatic: true
         containerNames:
-        - testapi
+        - testangularapp
         from:
           kind: ImageStreamTag
-          name: testapi:latest
+          name: testangularapp:latest
       type: ImageChange
